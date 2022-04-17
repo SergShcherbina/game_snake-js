@@ -1,0 +1,72 @@
+
+body {
+    background: url('./img/1587216240_14-p-zadnie-foni-dlya-saitov-53.jpg') center/cover ;
+    padding: 28px;
+    min-height: 700px;
+}
+
+h1 {
+    color: darkorange;
+    font-size: 50px;
+
+
+}
+
+.form_directory {
+    padding: 20px 70px;
+    background: rgba(0, 0, 0, 0.5);
+    width: 355px;
+    min-height: 270px;
+    border-radius: 5px;
+
+}
+
+
+input {
+    width: 340px;
+    height: 20px;
+    margin-bottom: 5px;
+    padding-left: 10px;
+    font-size: 13px;
+}
+
+h2 {
+    color: aliceblue;
+}
+
+.btn_form {
+    display: flex;
+    justify-content: space-between;
+}
+
+button {
+    box-shadow: 4px 2px 12px rgb(22 148 213);
+    margin-top: 20px;
+    color: black;
+    font-size: 15px;
+    padding: 5px;
+}
+.btn_remove {
+    color: red;
+    box-shadow: 4px 2px 12px rgb(255, 23, 30);
+}
+.content {
+    color:aliceblue;
+}
+
+.table {
+    color: white;
+    border: 1px solid #0c688c;
+    width: 100%;
+}
+th, td{
+    padding: 3px 1px;
+    border: 1px solid #333437;
+    font-size: 14px;
+    }
+
+th {
+    text-transform: uppercase;
+    font-size: 15px;
+    color: darkorange;
+}

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./style.css">
+    <title>Телефонная книга </title>
+</head>
+<body>
+    <h1>Tелефоннный справочник</h1>
+    <div class="form_directory">
+        <h2 class="title">Пожалуйста заполните поля:</h2>
+        <form action="">
+            <input required name='first' type="text" placeholder="Ваше имя">
+            <input required name='last' type="text" placeholder="Ваша фамилия">
+            <input required name='phone' type="phone" placeholder="Номер телефона">
+            <input  name='birfday' type="еуче" placeholder="Дата рождения">
+            <input  name='sex' type="text" placeholder="Пол">
+            <div class="btn_form">
+                <button class="btn btn_save" type="submit">Сохранить</button>
+                <button class="btn btn_list">Просмотр конактов</button>
+                <button class="btn btn_remove" type="reset" >Очистить</button>
+                </div>
+        </form>
+    <h2>Список контактов:</h2>
+    <table class="table"></table>
+    </div>
+    <script src="./script.js" ></script>
+</body>
+</html>
