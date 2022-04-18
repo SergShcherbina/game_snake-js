@@ -18,7 +18,7 @@
             
             window.localStorage.setItem('persons' , JSON.stringify(persons)); //сохранение в памяти браузера ключ:значение
             e.target.reset(); //очистка формы 
-            localStorage.clear(); //очистка памяти браузера  
+            //localStorage.clear(); //очистка памяти браузера  
         });
 
         const contactInner  = function () {
