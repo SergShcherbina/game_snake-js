@@ -68,4 +68,4 @@ close.addEventListener('mouseenter', () => {
 //закрыть банер если успеет нажать на крестик
 close.addEventListener('click', () => {
     document.querySelector('.advertising').style.display =  `none`;
-})
+});

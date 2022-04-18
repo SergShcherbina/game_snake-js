@@ -4,12 +4,10 @@ body {
     padding: 25px 50px;
     min-height: 700px;
 }
-
 h1 {
     color: darkorange;
     font-size: 50px;
 }
-
 .form_directory {
     padding: 20px 70px;
     background: rgba(0, 0, 0, 0.5);
@@ -17,8 +15,6 @@ h1 {
     min-height: 270px;
     border-radius: 5px;
 }
-
-
 input {
     width: 340px;
     height: 20px;
@@ -26,16 +22,13 @@ input {
     padding-left: 10px;
     font-size: 13px;
 }
-
 h2 {
     color: aliceblue;
 }
-
 .btn_form {
     display: flex;
     justify-content: space-between;
 }
-
 button {
     box-shadow: 4px 2px 12px rgb(22 148 213);
     margin-top: 20px;
@@ -50,7 +43,6 @@ button {
 .content {
     color:aliceblue;
 }
-
 .table {
     color: white;
     border: 1px solid #0c688c;
@@ -61,13 +53,11 @@ th, td{
     border: 1px solid #333437;
     font-size: 14px;
     }
-
 th {
     text-transform: uppercase;
     font-size: 15px;
     color: darkorange;
 }
-
 .advertising {
     width: 350px;
     background: rgba(0, 0, 0, 0.5);
@@ -80,7 +70,6 @@ th {
 .adv {
     padding: 10px 30px;
     color: white;
-    
 }
 .close {
     position: absolute;
@@ -88,6 +77,5 @@ th {
     font-size: 23px;
     color: red;
     cursor: pointer;
-    
 }
 
