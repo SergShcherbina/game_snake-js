@@ -8,7 +8,7 @@
     <title>Телефонная книга </title>
 </head>
 <body>
-    <div class="wrapper">
+    
         <h1>Tелефонный справочник</h1>
         <div class="form_directory">
             <h2 class="title">Пожалуйста заполните поля:</h2>
@@ -25,8 +25,15 @@
                     </div>
             </form>
         <h2>Список контактов:</h2>
+
+        <form class="search_form"> 
+            <input class="search" name="search" type="tel" placeholder=" Ведите для поиска +375...">
+            <button class="btn_search" type="submit">go</button> 
+        </form>
+        <table class="search_table"></table>
+
         <table class="table"></table>
-        </div>
+        
         <div class="advertising">
             <div class="close">&#9746;</div>
             <h2 class="adv">Здесь может быть Ваша реклама :D</h2>

@@ -44,7 +44,7 @@ button {
     color:aliceblue;
 }
 .table {
-    color: white;
+    margin: 23px 0;
     border: 1px solid #0c688c;
     width: 357px;
 }
@@ -52,7 +52,8 @@ th, td{
     padding: 3px 1px;
     border: 1px solid #333437;
     font-size: 14px;
-    }
+    color: white;
+}
 th {
     text-transform: uppercase;
     font-size: 15px;
@@ -78,4 +79,24 @@ th {
     color: red;
     cursor: pointer;
 }
-
+.search_table th {
+    width: 357px;
+    color: #3e85a3;
+}
+.search_form {
+    position: relative;
+}
+.btn_search {
+    position: absolute;
+    top: 0px;
+    right: -1px;
+    box-shadow: none;
+    height: 26px;
+    margin: 0;
+    background: #056791;
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+    color: white;
+    border: none;
+}
