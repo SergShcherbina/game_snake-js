@@ -1,15 +1,13 @@
 
 body {
     background: url('./img/1587216240_14-p-zadnie-foni-dlya-saitov-53.jpg') center/cover ;
-    padding: 28px;
+    padding: 25px 50px;
     min-height: 700px;
 }
 
 h1 {
     color: darkorange;
     font-size: 50px;
-
-
 }
 
 .form_directory {
@@ -18,7 +16,6 @@ h1 {
     width: 355px;
     min-height: 270px;
     border-radius: 5px;
-
 }
 
 
@@ -57,7 +54,7 @@ button {
 .table {
     color: white;
     border: 1px solid #0c688c;
-    width: 100%;
+    width: 357px;
 }
 th, td{
     padding: 3px 1px;
@@ -70,3 +67,27 @@ th {
     font-size: 15px;
     color: darkorange;
 }
+
+.advertising {
+    width: 350px;
+    background: rgba(0, 0, 0, 0.5);
+    position: fixed;
+    left: 650px;
+    top: 159px;
+    border-radius: 5px;
+    box-shadow: 3px 3px 21px #03a9f40d;
+}
+.adv {
+    padding: 10px 30px;
+    color: white;
+    
+}
+.close {
+    position: absolute;
+    margin-left: 92%;
+    font-size: 23px;
+    color: red;
+    cursor: pointer;
+    
+}
+

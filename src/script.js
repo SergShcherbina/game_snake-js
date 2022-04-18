@@ -43,6 +43,7 @@
             });
             table.appendChild(body);
         };
+        //localStorage.clear(); //очистка памяти браузера  
 
         btnList.addEventListener('click', (e) => {
             e.preventDefault();
@@ -50,4 +51,21 @@
          });
 
 
+//убегающий крестик на рекламе
 
+const close = document.querySelector('.close');
+
+const random = (min, max) => {
+    const rand = min + Math.random() * (max - min + 1);
+    return Math.floor(rand);
+};
+
+close.addEventListener('mouseenter', () => {
+    close.style.left = ` ${random(0, 30)}% `;
+    close.style.top = ` ${random(0, 30)}% `;
+}); 
+
+//закрыть банер если успеет нажать на крестик
+close.addEventListener('click', () => {
+    document.querySelector('.advertising').style.display =  `none`;
+})
