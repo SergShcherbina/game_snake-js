@@ -8,7 +8,7 @@
         const formData = new FormData(form);                              //преобразовываем формы в формдата
         const person = {};                                                //преобразование formData в обьект
         formData.forEach(function(value, key) {
-            person.id = persons.length;                                   //добавляем  идентификатор массива
+            person.id = persons.length + 1;                                   //добавляем  идентификатор массива
             person[key] = value;
         });
         persons.push(person);                                             //добавление новых обьектов в конец массива обьектов persons
@@ -16,7 +16,6 @@
     window.localStorage.setItem('persons' , JSON.stringify(persons));     //сохранение в памяти браузера ключ:значение
         e.target.reset(); //очистка формы 
     });
-
 
 ///////////////////////////создание таблицы списка контактов//////////////
     const contactInner  = function () {
@@ -30,11 +29,12 @@
         });
 
         const body = document.createElement('tbody');
-        persons.forEach( person => {
+        persons.forEach( el => {
             const tr = document.createElement('tr');
+            tr.id = el.id
             columnNames.forEach(columnName => {
                 const td = document.createElement('td');
-                td.innerHTML = person[columnName];
+                td.innerHTML = el[columnName];
                 tr.appendChild(td);
             });
             body.appendChild(tr);
@@ -45,7 +45,6 @@
     btnList.addEventListener('click', (e) => {
         e.preventDefault();
         contactInner('.table');
-        
     });
 
     document.querySelector('.btn_remove').addEventListener('click', (e) => {
@@ -90,15 +89,13 @@
         inputSearch.value = ''; 
         } else {
             alert('Заполните поле ввода');
-            
         }
-                                         
     });
 
 //////////////////////////редактирование ячейки ///////////////
-   const wrapper = document.querySelector('.search_table');         //родительский элемент таблицы
+   const wrapperTd = document.querySelector('.search_table');         //родительский элемент таблицы
 
-    wrapper.addEventListener("click", function func(e) {
+    wrapperTd.addEventListener("click", function func(e) {
         if(e.target && e.target.tagName == 'TD') {                 //делегирование событий через родителя(search_table) на ячейку td(tagName == 'TD'), так как таблица сформирована динамически
             const td = e.target;
             const input = document.createElement('input');   
@@ -111,12 +108,29 @@
             input.addEventListener('blur', function() {            //событие на инпут когда убираем фокус
                 td.innerHTML = input.value;                        //записываем содержимое инпута в ячейку, сам инпут затирается своим же сожержимым
                 const sok = persons.find(el => el.id == input['data-row-id']);
-                console.log(sok);
                 sok[input['data-property-name']] = input.value;												
                 window.localStorage.setItem('persons' , JSON.stringify(persons));
             });  
         } 
     }); 
+
+////////////////удаление строки из обьекта/////////////////////
+const wrapperTh = document.querySelector('.table');         //родительский элемент таблицы
+
+    wrapperTh.addEventListener("click", function func(e) {
+        if(e.target && e.target.tagName == 'TD') {                 //делегирование событий через родителя(table) на ячейку td(tagName == 'TD'), так как таблица сформирована динамически
+            const str = e.target.parentNode;
+            str.style.background = 'red';
+            const numId = str.id - 1;
+            console.log(numId);
+            const removeTr = document.querySelector('.remove_tr');
+            removeTr.addEventListener('click', (e) => {
+                e.preventDefault();
+                persons.splice(numId);
+                window.localStorage.setItem('persons' , JSON.stringify(persons));
+            });
+        }                                             
+    });
 
 ///////////////убегающий крестик на рекламе//////////////////////
     const close = document.querySelector('.close');
@@ -125,12 +139,10 @@
         const rand = min + Math.random() * (max - min + 1);
         return Math.floor(rand);
     };
-
     close.addEventListener('mouseenter', () => {
         close.style.left = ` ${random(0, 40)}% `;
         close.style.top = ` ${random(0, 40)}% `;
     }); 
-
     //закрыть банер если успеть нажать на крестик
     close.addEventListener('click', () => {
         document.querySelector('.advertising').style.display =  `none`;
