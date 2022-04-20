@@ -88,10 +88,10 @@ th {
 }
 .btn_search {
     position: absolute;
-    top: 0px;
-    right: -1px;
+    top: 1px;
+    right: 0px;
     box-shadow: none;
-    height: 26px;
+    height: 24px;
     margin: 0;
     background: #056791;
     display: flex;

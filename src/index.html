@@ -8,31 +8,29 @@
     <title>Телефонная книга </title>
 </head>
 <body>
-    
-        <h1>Tелефонный справочник</h1>
-        <div class="form_directory">
-            <h2 class="title">Пожалуйста заполните поля:</h2>
-            <form action="">
-                <input required name='first' type="text" placeholder="Ваше имя">
-                <input required name='last' type="text" placeholder="Ваша фамилия">
-                <input required name='phone' type="phone" placeholder="Номер телефона">
-                <input  name='birfday' type="еуче" placeholder="Дата рождения">
-                <input  name='sex' type="text" placeholder="Пол">
-                <div class="btn_form">
-                    <button class="btn btn_save" type="submit">Сохранить</button>
-                    <button class="btn btn_list">Просмотр конактов</button>
-                    <button class="btn btn_remove" type="reset" >Очистить</button>
-                    </div>
-            </form>
+    <h1>Tелефонный справочник</h1>
+    <div class="form_directory">
+        <h2 class="title">Пожалуйста заполните поля:</h2>
+        <form action="">
+            <input required id="first" name='first' type="text" placeholder="Ваше имя">
+            <input required id="last" name='last' type="text" placeholder="Ваша фамилия">
+            <input required id="phone" name='phone' type="phone" placeholder="Ваш номер +375...">
+            <input id="birthday" name='birthday' type="text" placeholder="Дата рождения">
+            <input id="sex" name='sex' type="text" placeholder="Пол">
+            <div class="btn_form">
+                <button class="btn btn_save" type="submit">Сохранить</button>
+                <button class="btn btn_list">Просмотр конактов</button>
+                <button class="btn btn_remove" type="reset" >Очистить</button>
+                </div>
+        </form>
         <h2>Список контактов:</h2>
-
         <form class="search_form"> 
-            <input class="search" name="search" type="tel" placeholder=" Ведите для поиска +375...">
+            <input class="search" name="search" type="tel" placeholder=" Введите для поиска номер +375...">
             <button class="btn_search" type="submit">go</button> 
         </form>
         <table class="search_table"></table>
 
-        <table class="table"></table>
+        <table class="table tab"></table>
         
         <div class="advertising">
             <div class="close">&#9746;</div>
@@ -40,5 +38,9 @@
         </div>
     </div>
     <script src="./script.js" ></script>
+
+ 
+
+
 </body>
 </html>
