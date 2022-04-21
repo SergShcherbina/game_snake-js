@@ -18,20 +18,25 @@
     });
 
 ///////////////////////////создание таблицы списка контактов//////////////
+let myIndex;
+
     const contactInner  = function () {
         const table = document.querySelector('.table');
-        table.innerHTML = null;                                           //чтобы не дублировалась шапка таблицы (conumNames)
+        table.innerHTML = null;                                             //чтобы не дублировалась таблица при каждом вызове
         const columnNames = Object.getOwnPropertyNames(persons[0]);         // Объявляем переменную которой  передаем массив со всеми свойствами (Получаем все названия строк = Firstname, LastName и тд.)
             columnNames.forEach(columnName => {
                 const th = document.createElement('th');
                 th.innerHTML = columnName;
                 table.appendChild(th);
         });
-
         const body = document.createElement('tbody');
         persons.forEach( el => {
             const tr = document.createElement('tr');
             tr.id = el.id
+            tr.addEventListener('click', function() {
+                myIndex = persons.indexOf(el); 
+                console.log(myIndex); 
+            });
             columnNames.forEach(columnName => {
                 const td = document.createElement('td');
                 td.innerHTML = el[columnName];
@@ -55,10 +60,10 @@
 /////////////////////////////поиск по номеру телефона ///////////////
     const inputSearch = document.querySelector('.search');
     
-    const resulttInner  = function () {                                        //функция создания таблицы поиска
-        let result = persons.filter( el => el.phone === inputSearch.value);  //фильтруем массив обьектов persons по ключу phone и сравниваем с содержимым  поисковой строки input
+    const resulttInner  = function () {                                          //функция создания таблицы поиска
+        let result = persons.filter( el => el.phone === inputSearch.value);      //фильтруем массив обьектов persons по ключу phone и сравниваем с содержимым  поисковой строки input
         const table = document.querySelector('.search_table');
-        table.innerHTML = null;                                                //чтобы не дублировалась шапка таблицы (conumNames)
+        table.innerHTML = null;                                                  //чтобы не дублировалась таблица
         const columnNames = Object.getOwnPropertyNames(persons[0]);              // Объявляем переменную которой  передаем массив со всеми свойствами (Получаем все названия строк = Firstname, LastName и тд.)
             columnNames.forEach(columnName => {
                 const th = document.createElement('th');
@@ -68,7 +73,7 @@
         const body = document.createElement('tbody');
             result.forEach( el => {
                 const tr = document.createElement('tr');
-				tr.id = el.id;
+				//tr.id = el.id;
                 columnNames.forEach(columnName => {
                     const td = document.createElement('td');
                     td.innerHTML = el[columnName];
@@ -79,7 +84,6 @@
         });
         table.appendChild(body);
 };
-    
 //назначаем событие на кнопку поиска go
     const btnSearch = document.querySelector('.btn_search');
     btnSearch.addEventListener('click', (e) => {
@@ -93,43 +97,48 @@
     });
 
 //////////////////////////редактирование ячейки ///////////////
-   const wrapperTd = document.querySelector('.search_table');         //родительский элемент таблицы
+   const wrapperTd = document.querySelector('.search_table');                      //родительский элемент таблицы
 
     wrapperTd.addEventListener("click", function func(e) {
-        if(e.target && e.target.tagName == 'TD') {                 //делегирование событий через родителя(search_table) на ячейку td(tagName == 'TD'), так как таблица сформирована динамически
+        if(e.target && e.target.tagName == 'TD') {                                 //делегирование событий через родителя(search_table) на ячейку td(tagName == 'TD'), так как таблица сформирована динамически
             const td = e.target;
             const input = document.createElement('input');   
-            input.value = td.innerHTML;                            //аписываем в input содержимое ячейки td
+            input.value = td.innerHTML;                                            //аписываем в input содержимое ячейки td
             input['data-property-name'] = td.id;
             input['data-row-id'] = td.parentNode.id;
-            td.innerHTML = '';                                     //очищаем ячейку td от старого значения(содержимого)
+            td.innerHTML = '';                                                     //очищаем ячейку td от старого значения(содержимого)
             td.append(input);
           
-            input.addEventListener('blur', function() {            //событие на инпут когда убираем фокус
-                td.innerHTML = input.value;                        //записываем содержимое инпута в ячейку, сам инпут затирается своим же сожержимым
+            input.addEventListener('blur', function() {                            //событие на инпут когда убираем фокус
+                td.innerHTML = input.value;                                        //записываем содержимое инпута в ячейку, сам инпут затирается своим же сожержимым
                 const sok = persons.find(el => el.id == input['data-row-id']);
                 sok[input['data-property-name']] = input.value;												
                 window.localStorage.setItem('persons' , JSON.stringify(persons));
+                contactInner();
             });  
         } 
     }); 
 
 ////////////////удаление строки из обьекта/////////////////////
-const wrapperTh = document.querySelector('.table');         //родительский элемент таблицы
+const wrapperTh = document.querySelector('.table');                                     //родительский элемент таблицы
 
-    wrapperTh.addEventListener("click", function func(e) {
-        if(e.target && e.target.tagName == 'TD') {                 //делегирование событий через родителя(table) на ячейку td(tagName == 'TD'), так как таблица сформирована динамически
-            const str = e.target.parentNode;
-            str.style.background = 'red';
-            const numId = str.id - 1;
-            console.log(numId);
-            const removeTr = document.querySelector('.remove_tr');
-            removeTr.addEventListener('click', (e) => {
+    wrapperTh.addEventListener('click', function func (e) {
+        if(e.target && e.target.tagName == 'TD') {                                      //делегирование событий через родителя(table) на ячейку td(tagName == 'TD'), так как таблица сформирована динамически
+            const tr = e.target.parentNode;
+            const removeTr = document.createElement('batton');                          //создаем кнопку по удалению строки
+            removeTr.innerHTML = '<img class="icon_remove" src="./img/delete.svg" alt="remove">';    //вставляем в кнопку картинку
+            tr.append(removeTr);                                                        //вставляем кнопку в верстку после строки
+            tr.classList.toggle('red');                                                 //добавляем класс red активной строке
+            if(removeTr == true) {
+            } 
+            removeTr.addEventListener('click', (e) => {                                 //вешаем событие на кнопку удаление строки 
                 e.preventDefault();
-                persons.splice(numId);
-                window.localStorage.setItem('persons' , JSON.stringify(persons));
+                persons.splice(myIndex, 1);                                             //удаляем обьект по индексу из массива persons
+                window.localStorage.setItem('persons' , JSON.stringify(persons));       //пересохраняем persons
+                contactInner();                                                         //вызываем построение таблицы, чтобы не обновлять 
             });
-        }                                             
+            wrapperTh.removeEventListener('click', func);                               //удаляем событие чтобы не дублировались кнопки 
+        }                                         
     });
 
 ///////////////убегающий крестик на рекламе//////////////////////
@@ -149,3 +158,12 @@ const wrapperTh = document.querySelector('.table');         //родительс
     });
 ///////////////////////////////////////////////////////////////
     
+
+
+//+ Пол это селект (мужской, женский, оно)
+// +Дата рождения (в виде даты рождения!)
+//+ В редактировании разрешить ввод только обусловленные параметры
+// +Удаление выбранного контакта
+// Выгрузка данных из массива в файл (создается новый файл в корневом каталоге)
+// Загрузка данных из файла обратно на страницу
+// Пагинация страниц (Когда много контактов показывает первые 20 и при нажатии следующая страница)

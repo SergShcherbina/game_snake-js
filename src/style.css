@@ -9,6 +9,7 @@ h1 {
     font-size: 50px;
 }
 .form_directory {
+    position: relative;
     padding: 20px 70px;
     background: rgba(0, 0, 0, 0.5);
     width: 355px;
@@ -37,6 +38,10 @@ button {
     padding: 5px;
 }
 .btn_remove {
+    margin-top: 20px;
+    color: black;
+    font-size: 15px;
+    padding: 5px;
     color: red;
     box-shadow: 4px 2px 12px rgb(255, 23, 30);
 }
@@ -44,9 +49,19 @@ button {
     color:aliceblue;
 }
 .table {
-    margin: 23px 0;
+    margin: 23px 0 30px;
     border: 1px solid #0c688c;
     width: 357px;
+}
+.remove_tr {
+    bottom: 10px;
+    left: 384px;
+    position: absolute;
+    height: 20px;
+    width: 20px;
+    margin: 0;
+    height: 33px;
+    width: 41px;
 }
 th, td{
     padding: 3px 1px;
@@ -104,4 +119,17 @@ th {
     height: 21px;
     width: 342px;
     
+}
+.red {
+    background-color: red;
+}
+
+.show {
+    display: block;
+}
+.icon_remove {
+    margin: 0;
+    width: 20px;
+    height: 16px;
+    padding-top: 3px;
 }
