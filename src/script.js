@@ -25,9 +25,9 @@ let myIndex;
         table.innerHTML = null;                                             //чтобы не дублировалась таблица при каждом вызове
         const columnNames = Object.getOwnPropertyNames(persons[0]);         // Объявляем переменную которой  передаем массив со всеми свойствами (Получаем все названия строк = Firstname, LastName и тд.)
             columnNames.forEach(columnName => {
-                const th = document.createElement('th');
-                th.innerHTML = columnName;
-                table.appendChild(th);
+            const th = document.createElement('th');
+            th.innerHTML = columnName;
+            table.appendChild(th);
         });
         const body = document.createElement('tbody');
         persons.forEach( el => {
@@ -73,7 +73,7 @@ let myIndex;
         const body = document.createElement('tbody');
             result.forEach( el => {
                 const tr = document.createElement('tr');
-				//tr.id = el.id;
+				tr.id = el.id;
                 columnNames.forEach(columnName => {
                     const td = document.createElement('td');
                     td.innerHTML = el[columnName];
@@ -157,8 +157,28 @@ const wrapperTh = document.querySelector('.table');                             
         document.querySelector('.advertising').style.display =  `none`;
     });
 ///////////////////////////////////////////////////////////////
-    
 
+/////////////////выгружаем контакты на сервер///////////////////// 
+const saveJson = document.querySelector('.saveJson');
+saveJson.addEventListener('click', e => {
+    e.preventDefault();
+
+    fetch('./server.php', {                                   //адрес
+        method: "POST",                                     //метод отправки
+        headers: {
+            'Content-type': 'application/json'              //заголовки добавляются при отправке Json
+        },
+        body: JSON.stringify(persons),                      //тело отправляемого файла
+
+    })
+    .then(data => data.text())                                // data это данные которые взвращаются с сервера преобразовываем в текстовый формат
+    .then(data => console.log(data))
+    .catch( () => console.log('Ошибка'));                                   //при ошибке
+    /* .finally( () => {                                       //действия которые выполняются в любом случае , например очистка формы
+    }) */
+});
+//////////////////////////////////////////////////////////////////////
+//console.log(JSON.stringify(persons));
 
 //+ Пол это селект (мужской, женский, оно)
 // +Дата рождения (в виде даты рождения!)

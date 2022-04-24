@@ -127,6 +127,9 @@ th {
 .show {
     display: block;
 }
+.hide {
+    display: none;
+}
 .icon_remove {
     margin: 0;
     width: 20px;
