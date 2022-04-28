@@ -159,6 +159,22 @@ const wrapperTh = document.querySelector('.table');                             
     });
 
 
+//////////////добавление файла из сохраненных /////////////////////////////////
+    function showFile(input) {
+        let file = input.files[0];
+        let reader = new FileReader();
+
+        reader.readAsText(file);                                               //чтоние содержимого файла Blob
+
+        reader.onload = function() {
+            persons = JSON.parse(reader.result);                               // атребут result выдает результат метода readAsText в виде строки
+            window.localStorage.setItem('persons' , JSON.stringify(persons));
+        };
+        reader.onerror = function() {
+            console.log(reader.error);
+        }; 
+    }
+
 /////////////////выгружаем контакты на сервер///////////////////// 
     function textToFile (text, name) {
         const b = new Blob([text], { type: 'text/plain' });                   //создаем класс Blob 
@@ -174,7 +190,7 @@ const wrapperTh = document.querySelector('.table');                             
     document.querySelector('.saveJson').addEventListener('click', () => {
         textToFile (JSON.stringify(persons), 'contacts.json');                 //скачиваем файл (тело файла, название)
     });
-
+    
 //////////////////////////////////////////////////////////////////////
 //console.log(JSON.stringify(persons));
 
