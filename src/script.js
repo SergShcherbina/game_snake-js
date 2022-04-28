@@ -1,5 +1,5 @@
 'use strict'
-    const persons = window.localStorage.getItem('persons') ? JSON.parse(window.localStorage.getItem('persons')) : []; //запрос значений по ключам persons, если значения получены они преобразовываются JSON.parse, если нет то в массив.
+    let persons = window.localStorage.getItem('persons') ? JSON.parse(window.localStorage.getItem('persons')) : []; //запрос значений по ключам persons, если значения получены они преобразовываются JSON.parse, если нет то в массив.
     
     const form = document.querySelector('form');
     form.addEventListener('submit', (e) => {
@@ -138,7 +138,8 @@ const wrapperTh = document.querySelector('.table');                             
                 contactInner();                                                         //вызываем построение таблицы, чтобы не обновлять 
             });
             wrapperTh.removeEventListener('click', func);                               //удаляем событие чтобы не дублировались кнопки 
-        }                                         
+            wrapperTh.addEventListener('click', func); 
+        }      
     });
 
 ///////////////убегающий крестик на рекламе//////////////////////
@@ -156,27 +157,24 @@ const wrapperTh = document.querySelector('.table');                             
     close.addEventListener('click', () => {
         document.querySelector('.advertising').style.display =  `none`;
     });
-///////////////////////////////////////////////////////////////
+
 
 /////////////////выгружаем контакты на сервер///////////////////// 
-const saveJson = document.querySelector('.saveJson');
-saveJson.addEventListener('click', e => {
-    e.preventDefault();
+    function textToFile (text, name) {
+        const b = new Blob([text], { type: 'text/plain' });                   //создаем класс Blob 
+        const url = window.URL.createObjectURL(b);                            //создаем и присваиваем url адрес на созданный выше класс =  конвертация Blob-объекта в строку с кодировкой base64
+        const a = document.createElement('a');                                //добавляем ссылку
+        a.href = url;                                                         //записываем в путь ссылки адрес url нашего созданного класса Blob
+        a.download = name || 'text.txt';                                      //по ссылке скачиваем текстовый файл с именем и разрешением txt
+        a.type = 'aplication/json';                                           //присваеваем MIME-тип ссылки = json данные
+        //a.type = 'text/plain';                                              //присваеваем MIME-тип ссылки = текстовые данные
+        setTimeout(() => window.URL.revokeObjectURL(url), 10000);             //удаляем внутреннюю ссылку на  обьект Blob для освобождения памяти
+        a.click();                                                            //имитация клика по ссылке
+    }
+    document.querySelector('.saveJson').addEventListener('click', () => {
+        textToFile (JSON.stringify(persons), 'contacts.json');                 //скачиваем файл (тело файла, название)
+    });
 
-    fetch('./server.php', {                                   //адрес
-        method: "POST",                                     //метод отправки
-        headers: {
-            'Content-type': 'application/json'              //заголовки добавляются при отправке Json
-        },
-        body: JSON.stringify(persons),                      //тело отправляемого файла
-
-    })
-    .then(data => data.text())                                // data это данные которые взвращаются с сервера преобразовываем в текстовый формат
-    .then(data => console.log(data))
-    .catch( () => console.log('Ошибка'));                                   //при ошибке
-    /* .finally( () => {                                       //действия которые выполняются в любом случае , например очистка формы
-    }) */
-});
 //////////////////////////////////////////////////////////////////////
 //console.log(JSON.stringify(persons));
 
@@ -187,3 +185,8 @@ saveJson.addEventListener('click', e => {
 // Выгрузка данных из массива в файл (создается новый файл в корневом каталоге)
 // Загрузка данных из файла обратно на страницу
 // Пагинация страниц (Когда много контактов показывает первые 20 и при нажатии следующая страница)
+
+
+
+
+    

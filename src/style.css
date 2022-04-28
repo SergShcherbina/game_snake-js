@@ -53,6 +53,10 @@ button {
     border: 1px solid #0c688c;
     width: 357px;
 }
+.wrapper_tab_btn {
+    display: flex;
+    justify-content: space-between;
+}
 .remove_tr {
     bottom: 10px;
     left: 384px;
