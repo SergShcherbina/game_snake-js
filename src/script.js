@@ -5,51 +5,77 @@
     form.addEventListener('submit', (e) => {
         e.preventDefault();
             
-        const formData = new FormData(form);                              //преобразовываем формы в формдата
-        const person = {};                                                //преобразование formData в обьект
+        const formData = new FormData(form);                                      //преобразовываем формы в формдата
+        const person = {};                                                        //преобразование formData в обьект
         formData.forEach(function(value, key) {
-            person.id = persons.length + 1;                                   //добавляем  идентификатор массива
+            person.id = persons.length + 1;                                       //добавляем  идентификатор массива
             person[key] = value;
         });
-        persons.push(person);                                             //добавление новых обьектов в конец массива обьектов persons
+        persons.push(person);                                                     //добавление новых обьектов в конец массива обьектов persons
 
-    window.localStorage.setItem('persons' , JSON.stringify(persons));     //сохранение в памяти браузера ключ:значение
+    window.localStorage.setItem('persons' , JSON.stringify(persons));             //сохранение в памяти браузера ключ:значение
         e.target.reset(); //очистка формы 
     });
 
 ///////////////////////////создание таблицы списка контактов//////////////
-let myIndex;
+    let myIndex;
+    function contactInner () {
+//////////////пагинация страницы
+    let pagination = document.querySelector('#pagination');
+    pagination.innerHTML = null;                                                   //чтобы не рисовало повторно li в конце страницы
+    let notesOnPage = 5;                                                           //количесво страниц
+    let countOfItems = Math.ceil(persons.length / notesOnPage);                    //делим длину массива на количество страниц и округляем к большему числу 
+    let items = [];
+    for (let i = 1; i <= countOfItems; i++) {                                      //цикл создания li элементов внизу страницы 
+        let li = document.createElement('li');
+        li.innerHTML = i;                                                          //добавляем нумерацию
+        pagination.appendChild(li);
+        items.push(li);
+    }
+    
+    for (let item of items) { 
+        items[0].click();                                                         //имитируем нажатие на первый li при загручке, чтобы были видны первые контакты 
+        item.addEventListener('click', function() {
+            let pageNumm = +this.innerHTML;                                       //записываем в переменную значени li на которую кликнули
+            let start = (pageNumm - 1) * notesOnPage;                            
+            let end = start + notesOnPage;
+            let notes = persons.slice(start, end);                                //создаем поверхносную копию массива для вывода в таблицу на страницу
 
-    const contactInner  = function () {
-        const table = document.querySelector('.table');
-        table.innerHTML = null;                                             //чтобы не дублировалась таблица при каждом вызове
-        const columnNames = Object.getOwnPropertyNames(persons[0]);         // Объявляем переменную которой  передаем массив со всеми свойствами (Получаем все названия строк = Firstname, LastName и тд.)
-            columnNames.forEach(columnName => {
-            const th = document.createElement('th');
-            th.innerHTML = columnName;
-            table.appendChild(th);
-        });
-        const body = document.createElement('tbody');
-        persons.forEach( el => {
-            const tr = document.createElement('tr');
-            tr.id = el.id
-            tr.addEventListener('click', function() {
-                myIndex = persons.indexOf(el); 
-                console.log(myIndex); 
+ //////////////////построение таблицы 
+            const table = document.querySelector('.table');
+            table.innerHTML = null;                                               //чтобы не дублировалась таблица при каждом вызове
+            const columnNames = Object.getOwnPropertyNames(persons[0]);           // Объявляем переменную которой  передаем массив со всеми свойствами (Получаем все названия строк = Firstname, LastName и тд.)
+                columnNames.forEach(columnName => {
+                const th = document.createElement('th');
+                th.innerHTML = columnName;
+                table.appendChild(th);
             });
-            columnNames.forEach(columnName => {
-                const td = document.createElement('td');
-                td.innerHTML = el[columnName];
-                tr.appendChild(td);
+            const body = document.createElement('tbody');
+
+            notes.forEach( el => {
+                const tr = document.createElement('tr');
+                tr.id = el.id
+                tr.addEventListener('click', function() {
+                    myIndex = persons.indexOf(el);                                //получаем индекс обьекта масива
+                });
+                
+                columnNames.forEach(columnName => {
+                    const td = document.createElement('td');
+                    td.innerHTML = el[columnName];
+                    tr.appendChild(td);
+                });
+                
+                body.appendChild(tr);
             });
-            body.appendChild(tr);
+            table.appendChild(body);
         });
-        table.appendChild(body);
-    };
+    }
+}
+    
     const btnList = document.querySelector('.btn_list');
     btnList.addEventListener('click', (e) => {
         e.preventDefault();
-        contactInner('.table');
+        contactInner();
     });
 
     document.querySelector('.btn_remove').addEventListener('click', (e) => {
@@ -57,7 +83,7 @@ let myIndex;
         localStorage.clear();
     });
 
-/////////////////////////////поиск по номеру телефона ///////////////
+///////////////////////поиск по номеру телефона ///////////////
     const inputSearch = document.querySelector('.search');
     
     const resulttInner  = function () {                                          //функция создания таблицы поиска
@@ -123,22 +149,24 @@ let myIndex;
 const wrapperTh = document.querySelector('.table');                                     //родительский элемент таблицы
 
     wrapperTh.addEventListener('click', function func (e) {
+       
         if(e.target && e.target.tagName == 'TD') {                                      //делегирование событий через родителя(table) на ячейку td(tagName == 'TD'), так как таблица сформирована динамически
             const tr = e.target.parentNode;
-            const removeTr = document.createElement('batton');                          //создаем кнопку по удалению строки
+            let removeTr = document.createElement('button');                            //создаем кнопку по удалению строки
             removeTr.innerHTML = '<img class="icon_remove" src="./img/delete.svg" alt="remove">';    //вставляем в кнопку картинку
             tr.append(removeTr);                                                        //вставляем кнопку в верстку после строки
-            tr.classList.toggle('red');                                                 //добавляем класс red активной строке
-            if(removeTr == true) {
-            } 
+                                                              
+            if (!!removeTr === true && tr.classList.contains('red') === true) {          
+              removeTr.remove();
+              tr.classList.add('red');                                                   //добавляем класс red активной строке
+             }  
+
+            tr.classList.add('red'); 
             removeTr.addEventListener('click', (e) => {                                 //вешаем событие на кнопку удаление строки 
-                e.preventDefault();
                 persons.splice(myIndex, 1);                                             //удаляем обьект по индексу из массива persons
                 window.localStorage.setItem('persons' , JSON.stringify(persons));       //пересохраняем persons
                 contactInner();                                                         //вызываем построение таблицы, чтобы не обновлять 
             });
-            wrapperTh.removeEventListener('click', func);                               //удаляем событие чтобы не дублировались кнопки 
-            wrapperTh.addEventListener('click', func); 
         }      
     });
 
@@ -194,13 +222,13 @@ const wrapperTh = document.querySelector('.table');                             
 //////////////////////////////////////////////////////////////////////
 //console.log(JSON.stringify(persons));
 
-//+ Пол это селект (мужской, женский, оно)
-// +Дата рождения (в виде даты рождения!)
-//+ В редактировании разрешить ввод только обусловленные параметры
-// +Удаление выбранного контакта
-// Выгрузка данных из массива в файл (создается новый файл в корневом каталоге)
-// Загрузка данных из файла обратно на страницу
-// Пагинация страниц (Когда много контактов показывает первые 20 и при нажатии следующая страница)
+// + Пол это селект (мужской, женский, оно)
+// + Дата рождения (в виде даты рождения!)
+// + В редактировании разрешить ввод только обусловленные параметры
+// + Удаление выбранного контакта
+// + Выгрузка данных из массива в файл (создается новый файл в корневом каталоге)
+// + Загрузка данных из файла обратно на страницу
+// + Пагинация страниц (Когда много контактов показывает первые 20 и при нажатии следующая страница)
 
 
 
