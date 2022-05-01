@@ -24,7 +24,7 @@
     let pagination = document.querySelector('#pagination');
     pagination.innerHTML = null;                                                   //чтобы не рисовало повторно li в конце страницы
     let notesOnPage = 5;                                                           //количесво страниц
-    let countOfItems = Math.ceil(persons.length / notesOnPage);                    //делим длину массива на количество страниц и округляем к большему числу 
+    let countOfItems = Math.ceil(persons.length / notesOnPage);                    //делим длину массива на количество страниц и округляем в большую сторону 
     let items = [];
     for (let i = 1; i <= countOfItems; i++) {                                      //цикл создания li элементов внизу страницы 
         let li = document.createElement('li');
@@ -32,7 +32,7 @@
         pagination.appendChild(li);
         items.push(li);
     }
-    
+    let active;
     for (let item of items) { 
         items[0].click();                                                         //имитируем нажатие на первый li при загручке, чтобы были видны первые контакты 
         item.addEventListener('click', function() {
@@ -40,6 +40,11 @@
             let start = (pageNumm - 1) * notesOnPage;                            
             let end = start + notesOnPage;
             let notes = persons.slice(start, end);                                //создаем поверхносную копию массива для вывода в таблицу на страницу
+            if (active) {                                                         
+                active.classList.remove('active');
+            }
+            active = item;
+            item.classList.add('active');
 
  //////////////////построение таблицы 
             const table = document.querySelector('.table');
@@ -79,8 +84,7 @@
     });
 
     document.querySelector('.btn_remove').addEventListener('click', (e) => {
-        e.preventDefault();
-        localStorage.clear();
+        //localStorage.clear();
     });
 
 ///////////////////////поиск по номеру телефона ///////////////
@@ -192,7 +196,7 @@ const wrapperTh = document.querySelector('.table');                             
         let file = input.files[0];
         let reader = new FileReader();
 
-        reader.readAsText(file);                                               //чтоние содержимого файла Blob
+        reader.readAsText(file);                                               //чтeние содержимого файла Blob
 
         reader.onload = function() {
             persons = JSON.parse(reader.result);                               // атребут result выдает результат метода readAsText в виде строки

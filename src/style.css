@@ -1,7 +1,7 @@
 
 body {
     background: url('./img/1587216240_14-p-zadnie-foni-dlya-saitov-53.jpg') center/cover ;
-    padding: 25px 50px;
+    padding: 25px 90px;
     min-height: 700px;
 }
 h1 {
@@ -12,16 +12,20 @@ h1 {
     position: relative;
     padding: 20px 70px;
     background: rgba(0, 0, 0, 0.5);
-    width: 355px;
+    width: 385px;
     min-height: 270px;
     border-radius: 5px;
 }
 input {
-    width: 340px;
+    width: 96%;
     height: 20px;
     margin-bottom: 5px;
     padding-left: 10px;
     font-size: 13px;
+}
+#birthday {
+    height: 21px;
+    width: 97%;
 }
 h2 {
     color: aliceblue;
@@ -37,6 +41,9 @@ h2 {
     font-size: 15px;
     padding: 5px;
 } 
+.btn_list {
+    box-shadow: 4px 2px 12px rgb(255 140 0);
+}
 .btn_remove {
     margin-top: 20px;
     color: black;
@@ -49,9 +56,9 @@ h2 {
     color:aliceblue;
 }
 .table {
-    margin: 23px 0 30px;
+    margin: 23px 0 7px;
     border: 1px solid #0c688c;
-    width: 357px;
+    width: 385px;
 }
 .wrapper_tab_btn {
     display: flex;
@@ -82,7 +89,7 @@ th {
     width: 350px;
     background: rgba(0, 0, 0, 0.5);
     position: fixed;
-    left: 650px;
+    left: 710px;
     top: 159px;
     border-radius: 5px;
     box-shadow: 3px 3px 21px #03a9f40d;
@@ -119,11 +126,18 @@ th {
     color: white;
     border: none;
 }
-#birthday {
-    height: 21px;
-    width: 342px;
-    
+.saveJson {
+    font-size: 15px;
+    padding: 2px;
 }
+.readFile {
+    color: rgb(232, 228, 228);
+    font-size: 15px;
+    padding: 5px 0;
+    margin: 5px 0 0 45px;
+    width: 258px;
+}
+
 .red {
     background-color: red;
 }
@@ -136,24 +150,23 @@ th {
 }
 .icon_remove {
     margin: 0;
-    width: 14px;
-    height: 15px;
+    width: 11px;
+    height: 12px;
     padding-top: 3px;
 }
-.readFile {
-    color: rgb(232, 228, 228);
-    font-size: 16px;
-    padding: 5px 0;
-    margin-top: 18px;
-}
+
 #pagination {
 	display: flex;
 	padding: 0;
 	list-style-type: none;
-    color:rgb(232, 228, 228)
+    color:rgb(232, 228, 228);
+    justify-content: center;
 }
 #pagination li {
-	margin-right: 5px;
-	padding: 10px;
+	margin-right: 6px;
+	padding: 7px;
 	border: 1px solid white;
+}
+.active {
+    background: rgb(5 103 145);
 }

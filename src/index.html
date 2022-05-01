@@ -28,7 +28,7 @@
                 <button class="btn btn_remove" type="reset" >Очистить</button>
                 </div>
         </form>
-        <h2>Список контактов:</h2>
+        <h2>Поиск контактов:</h2>
         <form class="search_form"> 
             <input class="search" name="search" type="tel" placeholder=" Введите для поиска номер +375...">
             <button class="btn_search " type="submit">go</button> 
@@ -36,9 +36,10 @@
         <table class="search_table"></table>
 
         <table class="table tab">
-            <button class="saveJson btn" >Сохранить контакты на компьютер</button>
-            <input name="file" type="file" class="readFile" onchange="showFile(this)">
+           
         </table>
+        <button class="saveJson" >Скачать &darr;</button>
+        <input name="file" type="file" class="readFile" onchange="showFile(this)">
         <ul id="pagination"></ul>
         
         <div class="advertising">
